@@ -28,6 +28,11 @@ class User
     private $reviewAuthors;
 
     /**
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Flight",mappedBy="pilot")
+     */
+    private $pilots;
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
