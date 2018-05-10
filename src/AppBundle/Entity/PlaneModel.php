@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * PlaneModel
  *
- * @ORM\Table(name="plane_model")
+ * @ORM\Table(name="planeModel")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PlaneModelRepository")
  */
 class PlaneModel
@@ -193,5 +193,45 @@ class PlaneModel
     {
         return $this->isAvailable;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->planeModels = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add planeModel
+     *
+     * @param \AppBundle\Entity\Flight $planeModel
+     *
+     * @return PlaneModel
+     */
+    public function addPlaneModel(\AppBundle\Entity\Flight $planeModel)
+    {
+        $this->planeModels[] = $planeModel;
+
+        return $this;
+    }
+
+    /**
+     * Remove planeModel
+     *
+     * @param \AppBundle\Entity\Flight $planeModel
+     */
+    public function removePlaneModel(\AppBundle\Entity\Flight $planeModel)
+    {
+        $this->planeModels->removeElement($planeModel);
+    }
+
+    /**
+     * Get planeModels
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlaneModels()
+    {
+        return $this->planeModels;
+    }
+}

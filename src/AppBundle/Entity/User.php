@@ -23,6 +23,11 @@ class User
      */
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Reservation",mappedBy="passenger")
+     */
+    private $passengers;
+
+    /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Review",mappedBy="reviewAuthor")
      */
     private $reviewAuthors;
@@ -308,5 +313,73 @@ class User
     public function getReviewAuthors()
     {
         return $this->reviewAuthors;
+    }
+
+    /**
+     * Add pilot
+     *
+     * @param \AppBundle\Entity\Flight $pilot
+     *
+     * @return User
+     */
+    public function addPilot(\AppBundle\Entity\Flight $pilot)
+    {
+        $this->pilots[] = $pilot;
+
+        return $this;
+    }
+
+    /**
+     * Remove pilot
+     *
+     * @param \AppBundle\Entity\Flight $pilot
+     */
+    public function removePilot(\AppBundle\Entity\Flight $pilot)
+    {
+        $this->pilots->removeElement($pilot);
+    }
+
+    /**
+     * Get pilots
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPilots()
+    {
+        return $this->pilots;
+    }
+
+    /**
+     * Add passenger
+     *
+     * @param \AppBundle\Entity\Reservation $passenger
+     *
+     * @return User
+     */
+    public function addPassenger(\AppBundle\Entity\Reservation $passenger)
+    {
+        $this->passengers[] = $passenger;
+
+        return $this;
+    }
+
+    /**
+     * Remove passenger
+     *
+     * @param \AppBundle\Entity\Reservation $passenger
+     */
+    public function removePassenger(\AppBundle\Entity\Reservation $passenger)
+    {
+        $this->passengers->removeElement($passenger);
+    }
+
+    /**
+     * Get passengers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPassengers()
+    {
+        return $this->passengers;
     }
 }
