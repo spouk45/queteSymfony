@@ -24,8 +24,7 @@ class Flight
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Reservation", inversedBy="flight")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Reservation",mappedBy="flight")
      */
     private $flights;
 
@@ -380,5 +379,36 @@ class Flight
     public function getFlights()
     {
         return $this->flights;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->flights = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add flight
+     *
+     * @param \AppBundle\Entity\Reservation $flight
+     *
+     * @return Flight
+     */
+    public function addFlight(\AppBundle\Entity\Reservation $flight)
+    {
+        $this->flights[] = $flight;
+
+        return $this;
+    }
+
+    /**
+     * Remove flight
+     *
+     * @param \AppBundle\Entity\Reservation $flight
+     */
+    public function removeFlight(\AppBundle\Entity\Reservation $flight)
+    {
+        $this->flights->removeElement($flight);
     }
 }
