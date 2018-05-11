@@ -31,14 +31,14 @@ class Review
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\Column(name="userRated", type="integer")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $userRated;
 
     /**
      * @var int
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User",inversedBy="reviewAuthors")
-     * @ORM\Column(name="reviewAuthor", type="integer")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $reviewAuthor;
 
