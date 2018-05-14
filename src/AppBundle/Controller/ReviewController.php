@@ -115,7 +115,7 @@ class ReviewController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing flight entity.
+     * Displays a form to edit an existing review entity.
      *
      * @Route("/{id}/edit", name="review_edit")
      * @Method({"GET", "POST"})
