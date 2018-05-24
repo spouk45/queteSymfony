@@ -13,7 +13,9 @@
                 <th>Publicationdate</th>
                 <th>Description</th>
                 <th>Wasdone</th>
+                <th>Distance</th>
                 <th>Actions</th>
+
             </tr>
         </thead>
         <tbody>
@@ -26,6 +28,7 @@
                 <td>{% if flight.publicationDate %}{{ flight.publicationDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ flight.description }}</td>
                 <td>{% if flight.wasDone %}Yes{% else %}No{% endif %}</td>
+
                 <td>
                     <ul>
                         <li>
