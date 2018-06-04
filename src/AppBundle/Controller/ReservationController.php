@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Reservation;
+use AppBundle\Service\Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -38,7 +39,7 @@ class ReservationController extends Controller
      * @Route("/new", name="reservation_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, Mailer $mailer)
     {
         $reservation = new Reservation();
         $form = $this->createForm('AppBundle\Form\ReservationType', $reservation);
@@ -49,6 +50,20 @@ class ReservationController extends Controller
             $em->persist($reservation);
             $em->flush();
 
+            // Pilot mail
+            $pilot = $reservation->getFlight()->getPilot();
+            $mailer->sendMail($pilot,'','Quelqu\'un vient de réserver une place sur votre vol. Merci de voyager avec Flyaround');
+
+            // Passenger mail
+           $mailer->sendMail($this->getUser(),'','Votre réservation est enregistrée. Merci de voyager avec Flyaround');
+
+/*
+            $message = (new \Swift_Message('Réservation Flyaround'))
+                ->setFrom('spo@gmail.com')
+                ->setTo($this->getUser()->getEmail())
+                ->setBody('Quelqu\'un vient de réserver une place sur votre vol.<br/>Merci de voyager avec Flyaround', 'text/html');
+            $this->get('mailer')->send($message);
+*/
             return $this->redirectToRoute('reservation_show', array('id' => $reservation->getId()));
         }
 

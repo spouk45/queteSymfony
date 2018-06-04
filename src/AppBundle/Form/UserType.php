@@ -20,6 +20,7 @@ class UserType extends AbstractType
             ->add('birthDate')
             ->add('creationDate')
             ->add('note')
+            ->add('email')
             ->add('isACertifiedPilot');
     }/**
      * {@inheritdoc}
